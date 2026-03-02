@@ -1,19 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kidney Stone Detection</title>
-</head>
+    <title>Kidney Stone AI Diagnostic System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
 
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f3f6f9;
+        }
+
+        .navbar {
+            background: #1f3c4d;
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 85vh;
+        }
+
+        .card {
+            background: white;
+            width: 460px;
+            padding: 50px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 35px;
+            color: #1f3c4d;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .upload-box {
+            border: 2px dashed #1f3c4d;
+            border-radius: 12px;
+            padding: 28px;
+            cursor: pointer;
+            transition: 0.2s ease;
+            background: #f8fbfd;
+            font-weight: 500;
+        }
+
+        .upload-box:hover {
+            background: #eaf2f7;
+        }
+
+        .file-name {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            min-height: 18px;
+        }
+
+        .btn {
+            margin-top: 30px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #1f3c4d;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #16303e;
+        }
+
+        .note {
+            margin-top: 15px;
+            font-size: 13px;
+            color: #888;
+        }
+    </style>
+</head>
 <body>
-    <h2>Upload Kidney CT Image</h2>
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" required>
-        <button type="submit">Analyze</button>
-    </form>
+
+<div class="navbar">
+    Kidney Stone AI Diagnostic System
+</div>
+
+<div class="wrapper">
+    <div class="card">
+        <h2>Upload CT Scan</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <label class="upload-box">
+                Select CT Image
+                <input type="file" name="file" id="fileInput" required onchange="showFileName(event)">
+            </label>
+
+            <div class="file-name" id="fileName"></div>
+
+            <button class="btn" type="submit">Analyze Image</button>
+
+            <div class="note">
+                Supported formats: JPG, PNG
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+function showFileName(event) {
+    const file = event.target.files[0];
+    const fileNameDiv = document.getElementById("fileName");
+
+    if (file) {
+        let shortName = file.name.length > 35 
+            ? file.name.substring(0, 35) + "..." 
+            : file.name;
+
+        fileNameDiv.textContent = "Selected: " + shortName;
+    }
+}
+</script>
 
 </body>
-
 </html>

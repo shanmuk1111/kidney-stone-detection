@@ -2,6 +2,7 @@ import os
 import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras import Input
 
 # Path to dataset
 DATASET_PATH = "../data/train"
@@ -39,21 +40,26 @@ val_data = datagen.flow_from_directory(
 )
 
 # Build CNN Model
-model = models.Sequential([
-    layers.Conv2D(32, (3,3), activation='relu', input_shape=(IMG_SIZE, IMG_SIZE, 3)),
-    layers.MaxPooling2D(2,2),
 
-    layers.Conv2D(64, (3,3), activation='relu'),
-    layers.MaxPooling2D(2,2),
+# Build CNN Model (Functional API)
+inputs = Input(shape=(IMG_SIZE, IMG_SIZE, 3))
 
-    layers.Conv2D(128, (3,3), activation='relu'),
-    layers.MaxPooling2D(2,2),
+x = layers.Conv2D(32, (3,3), activation='relu')(inputs)
+x = layers.MaxPooling2D(2,2)(x)
 
-    layers.Flatten(),
-    layers.Dense(128, activation='relu'),
-    layers.Dropout(0.5),
-    layers.Dense(1, activation='sigmoid')
-])
+x = layers.Conv2D(64, (3,3), activation='relu')(x)
+x = layers.MaxPooling2D(2,2)(x)
+
+x = layers.Conv2D(128, (3,3), activation='relu', name="last_conv")(x)
+x = layers.MaxPooling2D(2,2)(x)
+
+x = layers.Flatten()(x)
+x = layers.Dense(128, activation='relu')(x)
+x = layers.Dropout(0.5)(x)
+
+outputs = layers.Dense(1, activation='sigmoid')(x)
+
+model = models.Model(inputs, outputs)
 
 model.compile(
     optimizer='adam',

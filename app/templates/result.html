@@ -1,23 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analysis Result</title>
-</head>
+    <title>Kidney Stone Analysis Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #eef3f8;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            background: white;
+            padding: 50px;
+            border-radius: 18px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #203a43;
+        }
+
+        .image-row {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .image-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 400px;
+            object-fit: contain; /* IMPORTANT FIX */
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: #f0f4f8;
+        }
+
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            font-size: 17px;
+        }
+
+        .report-item {
+            background: #f7fbff;
+            padding: 18px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        .btn-area {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            background: #2c5364;
+            color: white;
+            transition: 0.3s ease;
+            margin: 10px;
+        }
+
+        .btn:hover {
+            background: #203a43;
+        }
+    </style>
+</head>
 <body>
 
-    <h2>Analysis Report</h2>
+<div class="navbar">
+    Kidney Stone AI Diagnostic Report
+</div>
 
-    <img src="{{ image_path }}" width="300"><br><br>
+<div class="container">
 
-    <p><strong>Prediction:</strong> {{ label }}</p>
-    <p><strong>Confidence:</strong> {{ confidence }}%</p>
-    <p><strong>Risk Level:</strong> {{ risk }}</p>
+    <h2>Analysis Summary</h2>
 
-    <a href="/">Analyze Another Image</a>
+    <div class="image-row">
+        <div class="image-box">
+            <h3>Original CT Image</h3>
+            <img src="{{ image_path }}">
+        </div>
+
+        <div class="image-box">
+            <h3>AI Attention Heatmap</h3>
+            <img src="{{ heatmap_path }}">
+        </div>
+    </div>
+
+    <div class="report-grid">
+        <div class="report-item"><strong>Prediction:</strong> {{ label }}</div>
+        <div class="report-item"><strong>Confidence:</strong> {{ confidence }}%</div>
+        <div class="report-item"><strong>Risk Level:</strong> {{ risk }}</div>
+        <div class="report-item"><strong>Stone Position:</strong> {{ position }}</div>
+        <div class="report-item"><strong>Estimated Stone Area:</strong> {{ area_percentage }}%</div>
+        <div class="report-item"><strong>Estimated Size:</strong> {{ size_category }}</div>
+        <div class="report-item full-width"><strong>Clinical Note:</strong> {{ warning }}</div>
+    </div>
+
+    <div class="btn-area">
+        <a href="{{ pdf_path }}" download>
+            <button class="btn">Download PDF Report</button>
+        </a>
+
+        <a href="/">
+            <button class="btn">Analyze Another Image</button>
+        </a>
+    </div>
+
+</div>
+
 </body>
-
 </html>

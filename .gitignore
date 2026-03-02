@@ -213,3 +213,13 @@ __marimo__/
 # Project specific
 data/
 models/*.h5
+
+
+# Generated runtime files (Kidney Project)
+app/static/*.jpg
+app/static/*.jpeg
+app/static/*.png
+app/static/*.pdf
+
+# Optional: ignore entire static folder except placeholder
+# app/static/*
