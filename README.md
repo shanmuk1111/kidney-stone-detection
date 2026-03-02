@@ -154,7 +154,7 @@ kidney-stone-detection/
 
 1️⃣ Clone Repository
 
-git clone https://github.com/sanku2025/kidney-stone-detection.git
+git clone https://github.com/shanmuk1111/kidney-stone-detection.git
 cd kidney-stone-detection
 
 2️⃣ Create Virtual Environment
